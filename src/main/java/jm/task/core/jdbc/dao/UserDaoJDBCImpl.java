@@ -3,6 +3,7 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,13 +12,13 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
     private final Util util = new Util();
+
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
-        Statement statement = util.baseConnect();
-        try {
+        try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("CREATE TABLE users (\n" +
                     "`id` INT NOT NULL AUTO_INCREMENT,\n" +
                     "`name` VARCHAR(45) NOT NULL,\n" +
@@ -27,57 +28,47 @@ public class UserDaoJDBCImpl implements UserDao {
                     "ENGINE = InnoDB\n" +
                     "DEFAULT CHARACTER SET = utf8;");
         } catch (SQLException e) {
-            //e.printStackTrace();
             System.out.println("createUsersTable: Таблица с таким именем уже существует");
-        } finally {
-            util.baseClose();
         }
+        util.baseClose();
     }
 
     public void dropUsersTable() {
-        Statement statement = util.baseConnect();
-        try {
+        try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("DROP TABLE users");
         } catch (SQLException e) {
             //e.printStackTrace();
-            System.out.println("dropUserTable: Таблицы с таким именем не существует");
-        } finally {
-            util.baseClose();
+            System.out.println("dropUserTable: Таблицы с таким именем не существует, удалять нечего");
         }
+        util.baseClose();
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        Statement statement = util.baseConnect();
-        try {
-            statement.executeUpdate("INSERT into users (name, lastName, age) VALUES ('" + name + "', '" + lastName + "', " + age + ")");
+        try (PreparedStatement statement = util.baseConnect().prepareStatement("INSERT into users (name, lastName, age) VALUES (?, ?, ?)")) {
+            statement.setString(1, name);
+            statement.setString(2, lastName);
+            statement.setInt(3, age);
+            statement.executeUpdate();
             System.out.println("User с именем - " + name + " добавлен в базу данных");
         } catch (SQLException e) {
-            //e.printStackTrace();
-            System.out.println("saveUser: Таблицы с таким именем не существует");
-        } finally {
-            util.baseClose();
+            e.printStackTrace();
         }
+        util.baseClose();
     }
 
     public void removeUserById(long id) {
-        Statement statement = util.baseConnect();
-        try {
+        try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("DELETE FROM users WHERE id = " + id);
             System.out.println("User с ID - " + id + " удален из базы");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            util.baseClose();
+            e.printStackTrace();
         }
+        util.baseClose();
     }
 
-    public List<User> getAllUsers()
-    {
-        Statement statement = util.baseConnect();
+    public List<User> getAllUsers() {
         List<User> listUsers = new ArrayList<>();
-
-        try {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+        try (Statement statement = util.baseConnect().createStatement(); ResultSet resultSet = statement.executeQuery("SELECT * FROM users")) {
             while (resultSet.next()) {
                 User user = new User();
                 user.setId(resultSet.getLong(1));
@@ -88,21 +79,17 @@ public class UserDaoJDBCImpl implements UserDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            //System.out.println("Таблицы с таким именем не существует");
-        } finally {
-            util.baseClose();
         }
+        util.baseClose();
         return listUsers;
     }
 
     public void cleanUsersTable() {
-        Statement statement = util.baseConnect();
-        try {
+        try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            util.baseClose();
         }
+        util.baseClose();
     }
 }

@@ -1,5 +1,8 @@
 package jm.task.core.jdbc.util;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 import java.sql.*;
 
 public class Util {
@@ -7,28 +10,30 @@ public class Util {
     private final static String url = "jdbc:mysql://localhost:3306/mydbfirst";
     private final static String username = "root";
     private final static String pass = "admin";
-    public Connection connection;
-    public Statement statement;
-    public Statement baseConnect() {
+    //JDBC
+    private Connection connection;
+
+    public Connection baseConnect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             connection = DriverManager.getConnection(url, username, pass);
-            statement = connection.createStatement();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return statement;
+        return connection;
     }
+
     public void baseClose() {
         try {
-            if (statement != null) {
-                statement.close();
-            }
             if (connection != null) {
                 connection.close();
-                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 }
