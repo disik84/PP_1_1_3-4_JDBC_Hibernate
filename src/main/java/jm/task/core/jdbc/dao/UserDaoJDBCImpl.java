@@ -17,9 +17,10 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
+    @Override
     public void createUsersTable() {
         try (Statement statement = util.baseConnect().createStatement()) {
-            statement.executeUpdate("CREATE TABLE users (\n" +
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS users (\n" +
                     "`id` INT NOT NULL AUTO_INCREMENT,\n" +
                     "`name` VARCHAR(45) NOT NULL,\n" +
                     "`lastName` VARCHAR(45) NOT NULL,\n" +
@@ -28,21 +29,48 @@ public class UserDaoJDBCImpl implements UserDao {
                     "ENGINE = InnoDB\n" +
                     "DEFAULT CHARACTER SET = utf8;");
         } catch (SQLException e) {
+            //e.printStackTrace();
             System.out.println("createUsersTable: Таблица с таким именем уже существует");
         }
-        util.baseClose();
+
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("createUserTable: закрыто");
+            } else {
+                System.out.println("createUserTable: открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
     public void dropUsersTable() {
         try (Statement statement = util.baseConnect().createStatement()) {
-            statement.executeUpdate("DROP TABLE users");
+            statement.executeUpdate("DROP TABLE IF EXISTS users");
         } catch (SQLException e) {
             //e.printStackTrace();
             System.out.println("dropUserTable: Таблицы с таким именем не существует, удалять нечего");
         }
-        util.baseClose();
+
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("dropUserTable: закрыто");
+            } else {
+                System.out.println("dropUserTable: открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
     public void saveUser(String name, String lastName, byte age) {
         try (PreparedStatement statement = util.baseConnect().prepareStatement("INSERT into users (name, lastName, age) VALUES (?, ?, ?)")) {
             statement.setString(1, name);
@@ -53,9 +81,22 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        util.baseClose();
+
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("saveUser: закрыто");
+            } else {
+                System.out.println("saveUser: открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
     public void removeUserById(long id) {
         try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("DELETE FROM users WHERE id = " + id);
@@ -63,9 +104,21 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        util.baseClose();
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("removeUserById: закрыто");
+            } else {
+                System.out.println("removeUserById: открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
+    @Override
     public List<User> getAllUsers() {
         List<User> listUsers = new ArrayList<>();
         try (Statement statement = util.baseConnect().createStatement(); ResultSet resultSet = statement.executeQuery("SELECT * FROM users")) {
@@ -80,16 +133,39 @@ public class UserDaoJDBCImpl implements UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        util.baseClose();
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("getAllUsers: закрыто");
+            } else {
+                System.out.println("getAllUsers: открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return listUsers;
     }
 
+    @Override
     public void cleanUsersTable() {
         try (Statement statement = util.baseConnect().createStatement()) {
             statement.executeUpdate("DELETE FROM users");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        util.baseClose();
+        try {
+            /* Если я сам в ручную не закрываю Connection, он остается открытым, а
+            try-wit-resources автоматически закрывает только Statement */
+            util.getConnection().close();
+            if (util.getConnection().isClosed()) {
+                System.out.println("cleanUserTable: соединение закрыто");
+            } else {
+                System.out.println("dropUserTable: соединение открыто");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
