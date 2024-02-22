@@ -1,18 +1,24 @@
-//23:55 22.02.24
 package jm.task.core.jdbc.util;
+
+import jm.task.core.jdbc.model.User;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.sql.*;
 
+import java.util.Properties;
+
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
+import org.hibernate.service.ServiceRegistry;
+
 public class Util {
     // реализуйте настройку соеденения с БД
-
-    //JDBC
-    private final String url = "jdbc:mysql://localhost:3306/mydbfirst";
-
+    /*private final static String url = "jdbc:mysql://localhost:3306/mydbfirst";
     private final static String username = "root";
-
     private final static String pass = "admin";
-
+    //JDBC
     private Connection connection;
 
     public Connection baseConnect() {
@@ -25,9 +31,22 @@ public class Util {
         return connection;
     }
 
-    //HIBERNATE
-    /*private static SessionFactory sessionFactory;
+    public void baseClose() {
+        try {
+            if (connection != null) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public Connection getConnection() {
+        return connection;
+    }*/
+
+    //HIBERNATE
+    private static SessionFactory sessionFactory;
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
             try {
@@ -52,5 +71,5 @@ public class Util {
             }
         }
         return sessionFactory;
-    }*/
+    }
 }
