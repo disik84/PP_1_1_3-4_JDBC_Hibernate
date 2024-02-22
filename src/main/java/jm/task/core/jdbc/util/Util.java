@@ -52,7 +52,7 @@ public class Util {
     }
 
     //HIBERNATE
-    private static SessionFactory sessionFactory;
+    /*private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -78,5 +78,5 @@ public class Util {
             }
         }
         return sessionFactory;
-    }
+    }*/
 }
