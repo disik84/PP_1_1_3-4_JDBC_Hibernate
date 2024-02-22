@@ -1,3 +1,4 @@
+//23:55 22.02.24
 package jm.task.core.jdbc;
 
 //import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // реализуйте алгоритм здесь
+        //реализуйте алгоритм здесь
         UserServiceImpl userService = new UserServiceImpl();
         userService.createUsersTable();
         userService.saveUser("Leo", "Messi", (byte) 36);
