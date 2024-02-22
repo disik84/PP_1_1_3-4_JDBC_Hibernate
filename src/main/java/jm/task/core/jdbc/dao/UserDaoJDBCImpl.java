@@ -38,9 +38,9 @@ public class UserDaoJDBCImpl implements UserDao {
             try-wit-resources автоматически закрывает только Statement */
             util.getConnection().close();
             if (util.getConnection().isClosed()) {
-                System.out.println("createUserTable: закрыто");
+                System.out.println("createUserTable: соединение закрыто");
             } else {
-                System.out.println("createUserTable: открыто");
+                System.out.println("createUserTable: соединение открыто");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -61,9 +61,9 @@ public class UserDaoJDBCImpl implements UserDao {
             try-wit-resources автоматически закрывает только Statement */
             util.getConnection().close();
             if (util.getConnection().isClosed()) {
-                System.out.println("dropUserTable: закрыто");
+                System.out.println("dropUserTable: соединение закрыто");
             } else {
-                System.out.println("dropUserTable: открыто");
+                System.out.println("dropUserTable: соединение открыто");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -87,9 +87,9 @@ public class UserDaoJDBCImpl implements UserDao {
             try-wit-resources автоматически закрывает только Statement */
             util.getConnection().close();
             if (util.getConnection().isClosed()) {
-                System.out.println("saveUser: закрыто");
+                System.out.println("saveUser: соединение закрыто");
             } else {
-                System.out.println("saveUser: открыто");
+                System.out.println("saveUser: соединение открыто");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -109,9 +109,9 @@ public class UserDaoJDBCImpl implements UserDao {
             try-wit-resources автоматически закрывает только Statement */
             util.getConnection().close();
             if (util.getConnection().isClosed()) {
-                System.out.println("removeUserById: закрыто");
+                System.out.println("removeUserById: соединение закрыто");
             } else {
-                System.out.println("removeUserById: открыто");
+                System.out.println("removeUserById: соединение открыто");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,9 +138,9 @@ public class UserDaoJDBCImpl implements UserDao {
             try-wit-resources автоматически закрывает только Statement */
             util.getConnection().close();
             if (util.getConnection().isClosed()) {
-                System.out.println("getAllUsers: закрыто");
+                System.out.println("getAllUsers: соединение закрыто");
             } else {
-                System.out.println("getAllUsers: открыто");
+                System.out.println("getAllUsers: соединение открыто");
             }
         } catch (SQLException e) {
             e.printStackTrace();
