@@ -1,17 +1,6 @@
 package jm.task.core.jdbc.util;
 
-import jm.task.core.jdbc.model.User;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-
 import java.sql.*;
-
-import java.util.Properties;
-
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import org.hibernate.cfg.Environment;
-import org.hibernate.service.ServiceRegistry;
 
 public class Util {
     // реализуйте настройку соеденения с БД
@@ -19,21 +8,9 @@ public class Util {
     //JDBC
     private final String url = "jdbc:mysql://localhost:3306/mydbfirst";
 
-    /*public String getUrl() {
-        return url;
-    }*/
-
     private final static String username = "root";
 
-    /*public static String getUsername() {
-        return username;
-    }*/
-
     private final static String pass = "admin";
-
-    /*public static String getPass() {
-        return pass;
-    }*/
 
     private Connection connection;
 
@@ -44,10 +21,6 @@ public class Util {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
-        return connection;
-    }
-
-    public Connection getConnection() {
         return connection;
     }
 
