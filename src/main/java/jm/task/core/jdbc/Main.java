@@ -1,4 +1,4 @@
-//23:55 22.02.24
+//HIBERNATE
 package jm.task.core.jdbc;
 
 //import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
@@ -12,17 +12,17 @@ public class Main {
     public static void main(String[] args) {
         //реализуйте алгоритм здесь
         UserServiceImpl userService = new UserServiceImpl();
-        userService.createUsersTable();
-        userService.saveUser("Leo", "Messi", (byte) 36);
+        //userService.createUsersTable();
+        /*userService.saveUser("Leo", "Messi", (byte) 36);
         userService.saveUser("Cristiano", "Ronaldo", (byte) 37);
         userService.saveUser("Zinedin", "Zidan", (byte) 47);
-        userService.saveUser("Roberto", "Carlos", (byte) 49);
+        userService.saveUser("Roberto", "Carlos", (byte) 49);*/
         List<User> list = userService.getAllUsers();
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i).toString());
         }
-        userService.removeUserById(1);
-        userService.cleanUsersTable();
+        //userService.removeUserById(2);
+        //userService.cleanUsersTable();
         userService.dropUsersTable();
     }
 }

@@ -1,10 +1,9 @@
+//HIBERNATE
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.exception.SQLGrammarException;
 
 import java.util.List;
 

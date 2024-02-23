@@ -1,7 +1,5 @@
-//23:55 22.02.24
+//HIBERNATE
 package jm.task.core.jdbc.service;
-
-//import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 
 import jm.task.core.jdbc.dao.UserDaoHibernateImpl;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;

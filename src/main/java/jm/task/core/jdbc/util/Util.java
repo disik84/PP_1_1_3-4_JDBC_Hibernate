@@ -1,3 +1,4 @@
+//HIBERNATE
 package jm.task.core.jdbc.util;
 
 import jm.task.core.jdbc.model.User;
@@ -15,7 +16,7 @@ import org.hibernate.service.ServiceRegistry;
 
 public class Util {
     // реализуйте настройку соеденения с БД
-    /*private final static String url = "jdbc:mysql://localhost:3306/mydbfirst";
+    private final static String url = "jdbc:mysql://localhost:3306/mydbfirst";
     private final static String username = "root";
     private final static String pass = "admin";
     //JDBC
@@ -43,7 +44,7 @@ public class Util {
 
     public Connection getConnection() {
         return connection;
-    }*/
+    }
 
     //HIBERNATE
     private static SessionFactory sessionFactory;

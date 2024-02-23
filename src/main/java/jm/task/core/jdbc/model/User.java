@@ -1,4 +1,4 @@
-//23:55 22.02.24
+//HIBERNATE
 package jm.task.core.jdbc.model;
 
 import javax.persistence.*;
